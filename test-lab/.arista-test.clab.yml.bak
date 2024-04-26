@@ -1,0 +1,18 @@
+
+name: arista-test-ceos
+
+topology:
+  nodes:
+    ceos1:
+      kind: ceos
+      image: ceos:4.32.0F
+    ceos2:
+      kind: ceos
+      image: ceos:4.32.0F
+    fw1:
+      kind: fortinet_fortigate 
+      image: vrnetlab/vr-fortigate:4.0.12 
+
+  links:
+    - endpoints: ["ceos1:eth1", "ceos2:eth1"]
+    - endpoints: ["ceos1:eth2", "fw1:eth1"]
