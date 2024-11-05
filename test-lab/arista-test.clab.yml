@@ -1,18 +1,46 @@
-
-name: arista-test-ceos
-
+name: 137lab 
+ 
 topology:
+  kinds:
+    ceos:
   nodes:
-    ceos1:
+    ny-hq-sw-01-01:
       kind: ceos
       image: ceos:4.32.0F
-    ceos2:
+      #startup-config: ./configs/ceos1-startup.cfg
+    ny-hq-sw-01-02:
       kind: ceos
       image: ceos:4.32.0F
-    fw1:
-      kind: fortinet_fortigate 
-      image: vrnetlab/vr-fortigate:4.0.12 
+      #sartup-config: ./configs/ceos2-startup.cfg
+    ny-hq-sw-02-01:
+      kind: ceos
+      image: ceos:4.32.0F
+    ny-hq-sw-02-02:
+      kind: ceos
+      image: ceos:4.32.0F
+    ny-hq-sw-03-01:
+      kind: ceos
+      image: ceos:4.32.0F
+    ny-hq-sw-03-02:
+      kind: ceos
+      image: ceos:4.32.0F
 
   links:
-    - endpoints: ["ceos1:eth1", "ceos2:eth1"]
-    - endpoints: ["ceos1:eth2", "fw1:eth1"]
+    
+    - endpoints: ["ny-hq-sw-01-01:eth3", "ny-hq-sw-02-01:eth3"]
+    - endpoints: ["ny-hq-sw-01-01:eth4", "ny-hq-sw-02-02:eth3"]
+    - endpoints: ["ny-hq-sw-01-02:eth3", "ny-hq-sw-02-01:eth4"]
+    - endpoints: ["ny-hq-sw-01-02:eth4", "ny-hq-sw-02-02:eth4"]
+    
+    - endpoints: ["ny-hq-sw-03-01:eth5", "ny-hq-sw-02-01:eth5"] 
+    - endpoints: ["ny-hq-sw-03-01:eth6", "ny-hq-sw-02-02:eth5"]
+    - endpoints: ["ny-hq-sw-03-02:eth5", "ny-hq-sw-02-01:eth6"]
+    - endpoints: ["ny-hq-sw-03-02:eth6", "ny-hq-sw-02-02:eth6"]
+
+    - endpoints: ["ny-hq-sw-01-01:eth1", "ny-hq-sw-01-02:eth1"]
+    - endpoints: ["ny-hq-sw-01-01:eth2", "ny-hq-sw-01-02:eth2"]
+    - endpoints: ["ny-hq-sw-02-01:eth1", "ny-hq-sw-02-02:eth1"]
+    - endpoints: ["ny-hq-sw-02-01:eth2", "ny-hq-sw-02-02:eth2"]
+    - endpoints: ["ny-hq-sw-03-01:eth1", "ny-hq-sw-03-02:eth1"]
+    - endpoints: ["ny-hq-sw-03-01:eth2", "ny-hq-sw-03-02:eth2"]
+
